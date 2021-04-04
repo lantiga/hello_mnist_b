@@ -18,8 +18,9 @@ class MNISTInference(ModelComponent):
         return out.argmax()
 
 
+mnist = GridModel(os.getenv("GRIDSERVE_MODEL_PATH"))
+component = MNISTInference(mnist)
+composition = Composition(classifier=component)
+
 if __name__ == "__main__":
-    mnist = GridModel(os.getenv("GRIDSERVE_MODEL_PATH"))
-    component = MNISTInference(mnist)
-    composition = Composition(classifier=component)
     composition.serve()
